@@ -5,6 +5,7 @@ GEM
     buftok (0.2.0)
     domain_name (0.5.24)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.0.2)
     equalizer (0.0.10)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
@@ -46,5 +47,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   nokogiri
   twitter

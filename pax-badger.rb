@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'twitter'
+require 'dotenv'
 
 # TODO: Single run and background modes
 
@@ -35,6 +36,7 @@ loop do
 
   if found
     puts "BADGES ARE COMING! Sending out notifications now!"
+    # TODO: Send notifications with twilio
   else
     puts "No badges yet...sit tight."
 
