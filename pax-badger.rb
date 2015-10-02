@@ -2,9 +2,16 @@ require 'nokogiri'
 require 'open-uri'
 require 'twitter'
 require 'dotenv'
+Dotenv.load
 
 # TODO: Single run and background modes
 
+twitter_client = Twitter::REST::Client.new do |config|
+  config.consumer_key        = ENV['API_KEY']
+  config.consumer_secret     = ENV['API_SECRET']
+  config.access_token        = ENV['ACCESS_TOKEN']
+  config.access_token_secret = ENV['ACCESS_SECRET']
+end
 
 puts "pax-badger by alexjwong"
 puts "======================="
@@ -31,11 +38,16 @@ loop do
     found = true
   end
 
-  # TODO: implement twitter parsing
-  # puts "...twitter"
+  puts "...twitter"
+  badge_regex = /.+?[B|b]adge(s|).+?$/
+  # Most recent tweet
+  paxtweet = twitter_client.user_timeline('Official_PAX')[0]
+  if paxtweet.text.match(badge_regex)
+    found = true
+  end
 
   if found
-    puts "BADGES ARE COMING! Sending out notifications now!"
+    puts "BADGES ARE COMING? Sending out notifications now!"
     # TODO: Send notifications with twilio
   else
     puts "No badges yet...sit tight."
