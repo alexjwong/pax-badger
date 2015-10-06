@@ -22,13 +22,33 @@ end
 
 # create twilio client
 @twilio_client = Twilio::REST::Client.new
-message_cooldown = 30
+message_cooldown = 0
 
 badge_regex = /.+?[B|b]adge(s|).+?$/
-east_regex = /.+?[E|e]ast.+?$/
+east_regex = /east/
 south_regex = /.+?[S|s]outh.+?$/
 prime_regex = /.+?[P|p]rime.+?$/
+aus_regex = /.+?[A|a]us.+?$/
 oldtweets = [nil,nil,nil,nil,nil]
+
+# Read command-line argument to choose expo
+case ARGV[0]
+when east_regex
+  expo = "east"
+  expo_regex = east_regex
+when south_regex
+  expo = "south"
+  expo_regex = south_regex
+when prime_regex
+  expo = "prime"
+  expo_regex = prime_regex
+when aus_regex
+  expo = "aus"
+  expo_regex = aus_regex
+else
+  puts "Error: '" + ARGV[0] + "' is not a valid expo."
+  exit
+end
 
 puts "pax-badger by alexjwong"
 puts "======================="
@@ -54,7 +74,7 @@ loop do
   if badges.css("li.soldOut").empty?
     puts "something's different...BADGES ARE NOT SOLD OUT!"
     found = true
-    source = "website"
+    source = "Badges may be available! - check " + expo + ".paxsite.com"
   end
 
   puts "twitter..."
@@ -62,39 +82,43 @@ loop do
   # Most recent 5 tweets
   paxtweets = @twitter_client.user_timeline('Official_PAX')[0..5]
 
-  sampletweet = "pax East badges now available!"
-
   for i in 0..5 do
+    # Make sure there are new tweets
     if paxtweets[i].text.match(badge_regex) && paxtweets[i] != oldtweets[i]
-      if paxtweets[i].text.match(east_regex)
+      # See if a specific expo is mentioned
+      if paxtweets[i].text.match(expo_regex)
         found = true
-        puts "PAX East Badges!"
-      elsif paxtweets[i].text.match(south_regex)
-        found = true
-        puts "PAX South Badges!"
-      elsif paxtweets[i].text.match(prime_regex)
-        found = true
-        puts "PAX Prime Badges!"
+        source = "@Official_PAX:" + paxtweets[i].text
       else
         found = true
+        source = "@Official_PAX:" + paxtweets[i].text
         puts "Badges!"
       end
     end
   end
-  # cache the old tweets
   oldtweets = paxtweets
+
+  puts "...finished"
 
   if found
     puts "BADGES ARE COMING? Sending out notifications now!"
+    if message_cooldown == 0
+      # Send text notifications
+      @twilio_client.messages.create(
+        from: ENV['TWILIO_NUMBER'],
+        to: ENV['MY_NUMBER'],
+        body: source
+      )
+      # Reset cooldown -
+      # time equal to loop sleep time * message_cooldown
+      message_cooldown = 2
+    else
+      message_cooldown = message_cooldown - 1
+    end
 
-    @twilio_client.messages.create(
-      from: ENV['TWILIO_NUMBER'],
-      to: ENV['MY_NUMBER'],
-      body: 'Hey there!'
-    )
   else
     puts "No badges yet...sit tight."
   end
 
-  sleep(60*5) # seconds
+  sleep(60*5) # 5 Minutes
 end
