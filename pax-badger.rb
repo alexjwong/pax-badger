@@ -25,7 +25,7 @@ end
 message_cooldown = 0
 
 badge_regex = /.+?[B|b]adge(s|).+?$/
-east_regex = /east/
+east_regex = /.+?[E|e]ast.+?$/
 south_regex = /.+?[S|s]outh.+?$/
 prime_regex = /.+?[P|p]rime.+?$/
 aus_regex = /.+?[A|a]us.+?$/
@@ -33,16 +33,16 @@ oldtweets = [nil,nil,nil,nil,nil]
 
 # Read command-line argument to choose expo
 case ARGV[0]
-when east_regex
+when /east/i
   expo = "east"
   expo_regex = east_regex
-when south_regex
+when /south/i
   expo = "south"
   expo_regex = south_regex
-when prime_regex
+when /prime/i
   expo = "prime"
   expo_regex = prime_regex
-when aus_regex
+when /aus/i
   expo = "aus"
   expo_regex = aus_regex
 else
@@ -54,6 +54,9 @@ puts "pax-badger by alexjwong"
 puts "======================="
 puts "\n"
 
+puts "Starting monitor for PAX " + expo + " badges."
+puts "\n"
+
 loop do
   found = false
   source = ""
@@ -61,7 +64,7 @@ loop do
   # monitor..
   puts "checking..."
 
-  puts "website..."
+  print "website..."
   paxsite = Nokogiri::HTML(open("http://east.paxsite.com"))
   badges = paxsite.css("ul#badges")
 
@@ -76,8 +79,9 @@ loop do
     found = true
     source = "Badges may be available! - check " + expo + ".paxsite.com"
   end
+  puts "...done"
 
-  puts "twitter..."
+  print "twitter..."
 
   # Most recent 5 tweets
   paxtweets = @twitter_client.user_timeline('Official_PAX')[0..5]
@@ -88,20 +92,19 @@ loop do
       # See if a specific expo is mentioned
       if paxtweets[i].text.match(expo_regex)
         found = true
-        source = "@Official_PAX:" + paxtweets[i].text
-      else
-        found = true
-        source = "@Official_PAX:" + paxtweets[i].text
-        puts "Badges!"
+        source = "Badges mentioned by @Official_PAX!: " + paxtweets[i].text
       end
+      break
     end
   end
   oldtweets = paxtweets
 
-  puts "...finished"
+  puts "...done"
+  puts "\n"
 
   if found
-    puts "BADGES ARE COMING? Sending out notifications now!"
+    puts source
+    puts "\n"
     if message_cooldown == 0
       # Send text notifications
       @twilio_client.messages.create(
@@ -118,6 +121,7 @@ loop do
 
   else
     puts "No badges yet...sit tight."
+    puts "\n"
   end
 
   sleep(60*5) # 5 Minutes
