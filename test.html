@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>PAX East - Boston, MA March 6-8, 2015</title>
+
+	<script src="https://use.typekit.net/xvk7lft.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>
+	<link rel="stylesheet" media="screen" type="text/css" href="http://east.paxsite.com//assets/css/fonts.css" />
+	<link rel="stylesheet" media="screen" type="text/css" href="http://hw1.pa-cdn.com/pax/east/assets/css/index.css" />
+	<!--[if lte IE 8]><link rel="stylesheet" media="screen" type="text/css" href="http://hw1.pa-cdn.com/pax/east/assets/css/ie.css" /><![endif]-->
+	<link rel="stylesheet" media="screen" type="text/css" href="http://hw1.pa-cdn.com/pax/east/assets/css/jquery.fancybox.css" />
+	<link rel="Shortcut Icon" type="image/png" href="http://hw1.pa-cdn.com/pax/east/assets/img/favicon.png" />
+	<link rel="alternate" type="application/rss+xml" title="RSS" href="http://east.paxsite.com/feed" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="http://hw1.pa-cdn.com/pax/east/assets/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="http://hw1.pa-cdn.com/pax/east/assets/js/jquery.cycle.js"></script>
+	<script type="text/javascript" src="http://hw1.pa-cdn.com/pax/east/assets/js/jquery.countdown.min.js"></script>
+	<script type="text/javascript" src="http://hw1.pa-cdn.com/pax/east/assets/js/twitter.js"></script>
+	<script type="text/javascript" src="http://hw1.pa-cdn.com/pax/east/assets/js/paxeast.js"></script>
+	<script type="text/javascript" src="http://hw1.pa-cdn.com/pax/east/assets/js/jquery.fancybox.js"></script>
+	<script type="text/javascript">
+
+	$('#hero').cycle({
+	    fx:       'scrollDown',
+		timeout:  5000,
+		speedIn:  200,
+		speedOut: 400,
+		easeIn:   'easeInQuad',
+		easeOut:  'easeInQuad',
+	    pager:    '#heroNav'
+	});
+
+	jQuery(function($){
+		$("#tweets").tweet({
+			username: "Official_PAX",
+			avatar_size: 0,
+			count: 1,
+			fetch: 20,
+			template: "{text}",
+			loading_text: "loading tweets...",
+			filter: function(t){ return ! /^@\w+/.test(t["tweet_raw_text"]); }
+		});
+	});
+
+
+
+	// Every Page
+    $('#sponsorList').cycle({
+		fx: 'fade',
+		timeout: 5000
+	});
+	</script>
+	<script type='text/javascript'>
+	var googletag = googletag || {
+	};
+	googletag.cmd = googletag.cmd || [];
+	(function() {
+	var gads = document.createElement('script');
+	gads.async = true;
+	gads.type = 'text/javascript';
+	var useSSL = 'https:' == document.location.protocol;
+	gads.src = (useSSL ? 'https:' : 'http:') +
+	'//www.googletagservices.com/tag/js/gpt.js';
+	var node = document.getElementsByTagName('script')[0];
+	node.parentNode.insertBefore(gads, node);
+	})();
+	</script>
+
+	<script type='text/javascript'>
+	googletag.cmd.push(function() {
+	googletag.defineSlot('/1002971/PAXSite_Banner', [728, 90], 'div-gpt-ad-1331836661000-0').addService(googletag.pubads());
+	googletag.defineSlot('/1002971/PAXSite_Square', [300, 250], 'div-gpt-ad-1331836684339-0').addService(googletag.pubads());
+	googletag.defineSlot('/1002971/2nd_PAX_Site_Square', [300, 250], 'div-gpt-ad-1401473682906-0').addService(googletag.pubads());
+	googletag.pubads().enableSingleRequest();
+	googletag.enableServices();
+	});
+	</script>
+
+	<script type="text/javascript">
+	// analytics
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-589570-10']);
+	_gaq.push(['_setDomainName', 'paxsite.com']);
+	_gaq.push(['_trackPageview']);
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+</script>
+</head>
+<body>
+	<div id="bb">
+		<div class="content">
+			<ul>
+				<li><a class="btnPA" href="http://penny-arcade.com/" title="Penny Arcade">Penny Arcade</a></li>
+				<li><a class="btnPAX" href="http://paxsite.com/" title="PAX">PAX</a></li>
+				<li><a class="btnTrenches" href="http://trenchescomic.com/" title="The Trenches">The Trenches</a></li>
+				<li><a class="btnCP" href="http://childsplaycharity.org/" title="Child's Play">Child's Play</a></li>
+			</ul>
+		</div>
+	</div>
+	<hr />
+	<div id="container">
+		<div id="header">
+			<h1><a href="/" title="PAX East Home">PAX East</a></h1>
+			<div id="showsAndSocial">
+				<ul class="shows">
+					<li><a class="btn btnPrime" href="http://prime.paxsite.com/" title="PAX Prime: Seattle, WA"><strong>PAX</strong> Prime</a></li>
+					<li><a class="btn btnEast" href="http://east.paxsite.com/" title="PAX East: Boston, MA"><strong>PAX</strong> East</a></li>
+					<li><a class="btn btnSouth" href="http://south.paxsite.com/" title="PAX South: San Antonio, TX"><strong>PAX</strong> South</a></li>
+					<li><a class="btn btnAus" href="http://aus.paxsite.com/" title="PAX Aus: Melbourne, VIC"><strong>PAX</strong> Aus</a></li>
+					<li><a class="btn btnDev" href="http://dev.paxsite.com/" title="PAX Dev: Seattle, WA"><strong>PAX</strong> Dev</a></li>
+				</ul>
+				<ul class="social">
+					<li><a class="btn btnRSS" href="http://east.paxsite.com/feed" title="Subscribe via RSS">Subscribe via RSS</a></li>
+					<li><a class="btn btnTwt" href="http://twitter.com/#!/official_pax" title="Follow @Official_PAX on Twitter">Follow @Official_PAX on Twitter</a></li>
+					<li><a class="btn btnFb" href="http://www.facebook.com/pages/Penny-Arcade/19103799704" title="Fan Penny Arcade on Facebook">Fan Penny Arcade on Facebook</a></li>
+				</ul>
+			</div>
+			<div id="countdown">
+
+				<h2><strong>Boston, MA</strong> Mar 6-8, 2015</h2>
+
+				<div id="countdown-date"></div>
+			</div>
+			<ul class="nav">
+				<li><a class="navWhatIsPax" href="/what-is-pax" title="What is PAX?">What is PAX?</a></li>
+				<li><a class="navRegistration" href="/registration" title="Registration">Registration</a></li>
+				<li><a class="navSchedule" href="/schedule" title="Schedule">Schedule</a></li>
+				<li><a class="navHotels" href="/hotels-and-travel" title="Hotels &amp; Travel">Hotels &amp; Travel</a></li>
+				<li><a class="navSafety" href="/safety-and-security" title="Safety &amp; Security">Safety &amp; Security</a></li>
+				<li><a class="navFAQ" href="/faq" title="FAQ">FAQ</a></li>
+				<li><a class="navGallery" href="/gallery" title="Gallery">Gallery</a></li>
+				<li><a class="navForums" href="http://forums.penny-arcade.com/categories/pax-east" title="Forums">Forums</a></li>
+			</ul>
+		</div>
+		<hr />
+
+
+
+<style>#main .news > p { display: none; }</style>
+<div id="main">
+    <div class="heroContent">
+	<div id="heroNav"></div>
+	<ul id="hero">
+		<li><h3><a href='http://east.paxsite.com/news/its-over' title='Thanks for Attending!'>Thanks for Attending!</a></h3><a href='http://east.paxsite.com/news/its-over' title='Thanks for Attending!'><img src='http://hw1.pa-cdn.com/pax/east/assets/img/hero/east_hero_thankyou.jpg' alt='Thanks for Attending!' /></a></li>
+	</ul>
+</div>
+    <div class="news">
+
+        <div class="meta">
+            <h4><a href="/news" title="View all news">Latest News</a></h4>
+            <p>03.11.15</p>
+        </div>
+                <h2><a href="/news/its-over" title="It's Over.">It's Over.</a></h2>
+<p>Never again will there be a PAX East 2015. It&#8217;s over. Done, gone, and exists only in our memories (or perhaps, lingering muscle soreness). Huge thanks to all our exhibitors, Enforcers, and attendees&#8230;we hope you all had as much fun as we did! If&#8230;</p>
+        <a class="btn red" href="http://east.paxsite.com/news/its-over" title="Continue Reading">Continue Reading</a>
+
+    </div>
+</div>
+<hr />
+
+
+<script>
+(function() {
+    var latest_news_html = '<p>Never again will there be a PAX East 2015. It&#8217;s over. Done, gone, and exists only in our memories (or perhaps, lingering muscle soreness). Huge thanks to all our exhibitors, Enforcers, and attendees&#8230;we hope you all had as much fun as we did! If we don&#8217;t see you at PAX Prime, Aus, or South, hopefully we&#8217;ll see you all at PAX East 2016!</p>',
+        $latest_news = $("#main .news > p");
+    if (latest_news_html.indexOf('allow_html') >= 0) $latest_news.html(latest_news_html);
+    $latest_news.fadeIn();
+}());
+</script>
+
+<div id="body">
+    <div class="left registration">
+        <div class="white">
+            <h3><a href="/registration" title="Registration">Registration</a></h3>
+
+
+
+                    <p>PAX East 2015 Registration has sold out.  Sorry, but there will be no additional tickets available on site or in advance.</p>
+
+
+
+
+                    </div>
+        <div class="grey">
+            <h4>Badge Availability</h4>
+            <ul id="badges">
+	<li class="avail"><h3>Sold Out</h3></li>
+
+</ul>
+        </div>
+    </div>
+    <hr />
+    <div class="right peis">
+        <div class="white">
+            <h3><a href="/peis" title="PAX East Indie Showcase">PAX East Indie Showcase</a></h3>
+
+            <p>Each year we showcase a collection of the best indie games you’ve never heard of available on mobile platforms.</p>
+
+
+            <a class="btn red" href="/peis" title="Check Out This Year's Games">Check Out This Year's Games</a>
+        </div>
+        <div class="grey">
+	<h4>Are you an indie developer?</h4>
+
+
+
+		<p>Our submission period has ended for 2015, but if you've got a question for next year, let us know!</p>
+
+	<p class="grey"><a class="btn grey" href="mailto:peis@paxsite.com" title="Contact Us With PEIS Questions">Contact Us With PEIS Questions</a></p>
+	</div>
+    </div>
+    <hr />
+    <div class="left enforcers">
+        <div class="white">
+            <h3><a href="/enforcers" title="Enforcers">Enforcers</a></h3>
+
+            <p>Without this dedicated army, PAX would not be possible. Find out how you can be a part of the community that makes this the greatest show ever.</p>
+            <a class="btn red" href="/enforcers" title="Find Out More">Find Out More</a>
+
+        </div>
+        <div class="grey">
+
+
+
+                            <h5><a href="http://penny-arcade.com/patv/episode/enforcers" title="See the Enforcer PATV Episode">See the Enforcer PATV Episode</a></h5>
+                    </div>
+    </div>
+    <hr />
+    <div class="right twitter">
+        <div class="white">
+	<h3><a href="http://twitter.com/#!/official_pax" title="@Official_PAX">@Official_PAX</a></h3>
+
+	<div id="tweets"></div>
+	<a class="btn red" href="http://twitter.com/#!/official_pax" title="Follow Official_PAX">Follow Official_PAX</a>
+</div>
+<div class="grey">
+	<h4><a href="http://twitter.com/#!/pax_lines" title="@PAX_Lines">@PAX_Lines</a></h4>
+	<p>Live status updates on PAX theatre lines</p>
+	<p class="grey"><a class="btn grey" href="http://twitter.com/#!/pax_lines" title="Follow PAX_lines">Follow PAX_lines</a></p>
+</div>
+    </div>
+</div>
+<hr />
+<div id="sidebar">
+	<div class="squareAd">
+		<div class="white">
+			<p>Advertisement</p>
+			<!-- PAXSite_Square -->
+			<div id='div-gpt-ad-1331836684339-0' style='width:300px; height:250px;'>
+				<script type='text/javascript'>
+				googletag.cmd.push(function() {googletag.display('div-gpt-ad-1331836684339-0');});
+				</script>
+			</div>
+		</div>
+	</div>
+	<div class="squareAd">
+		<div class="white">
+			<p>Advertisement</p>
+			<!-- 2nd_PAX_Site_Square -->
+			<div id='div-gpt-ad-1401473682906-0' style='width:300px; height:250px;'>
+				<script type='text/javascript'>
+				googletag.cmd.push(function() {googletag.display('div-gpt-ad-1401473682906-0');});
+				</script>
+			</div>
+		</div>
+	</div>
+
+
+
+
+		<div id="gallery">
+		<div class="grey">
+			<h4><a href="/gallery" title="From the Image Gallery:">From the Image Gallery:</a></h4>
+			<a href="/gallery" title="View Gallery">
+
+				<p>Photo By: <strong>Bryant Naro</strong></p>
+				<div id="tmb"><img src="http://hw1.pa-cdn.com/pax/east/assets/img/gallery/BN5D1826.1334200100.jpg" alt="Photo by: Bryant Naro" /></div>
+
+			</a>
+		</div>
+	</div>
+		<div id="paxApp">
+		<div class="white">
+			<img src="http://hw1.pa-cdn.com/pax/east/assets/img/icon_guidebook.png" alt="Guidebook" />
+			<h4>Download Guidebook</h4>
+			<p>The official PAX app for smart phones!</p>
+			<ul>
+				<li><a class="btniPhone" href="http://guidebook.com/getit/iphone/" title="Download app for iPhone">iPhone</a></li>
+				<li><a class="btnDroid" href="http://guidebook.com/getit/android/" title="Download app for Droid">Droid</a></li>
+				<li><a class="btnWP7" href="http://guidebook.com/getit/wp7/" title="Mobile Site for WP7">WP7</a></li>
+				<li><a class="btnBlackberry" href="http://guidebook.com/getit/blackberry/" title="Mobile Site for Blackberry">Blackberry</a></li>
+			</ul>
+		</div>
+	</div>
+
+</div>
+<hr />
+
+		<div id="footer">
+			<div id="leaderboard">
+				<div id='div-gpt-ad-1331836661000-0' style='width:728px; height:90px;'>
+					<script type='text/javascript'>
+					googletag.cmd.push(function() {googletag.display('div-gpt-ad-1331836661000-0');});
+					</script>
+				</div>
+			</div>
+			<div id="advertise">
+				<h3>Advertise on PAX Site</h3>
+				<a class="btn grey" href="mailto:paxsales@paxsite.com?subject=PAX%20East%20Inquiry" title="Contact Us">Contact Us</a>
+			</div>
+			<ul class="nav">
+				<li><a class="navWhatIsPax" href="/what-is-pax" title="What is PAX?">What is PAX?</a></li>
+				<li><a class="navRegistration" href="/registration" title="Registration">Registration</a></li>
+				<li><a class="navSchedule" href="/schedule" title="Schedule">Schedule</a></li>
+				<li><a class="navHotels" href="/hotels-and-travel" title="Hotels &amp; Travel">Hotels &amp; Travel</a></li>
+				<li><a class="navFAQ" href="/faq" title="FAQ">FAQ</a></li>
+				<li><a class="navGallery" href="/gallery" title="Gallery">Gallery</a></li>
+				<li><a class="navForums" href="http://forums.penny-arcade.com/categories/pax-east" title="Forums">Forums</a></li>
+			</ul>
+			<ul class="shows">
+				<li><a class="btn btnPrime" href="http://prime.paxsite.com/" title="PAX Prime: Seattle, WA"><strong>PAX Prime</strong></a></li>
+				<li><a class="btn btnEast" href="http://east.paxsite.com/" title="PAX East: Boston, MA"><strong>PAX East</strong></a></li>
+
+				<li><a class="btn btnAus" href="http://aus.paxsite.com/" title="PAX Aus: Melbourne, VIC"><strong>PAX Aus</strong></a></li>
+				<li><a class="btn btnDev" href="http://dev.paxsite.com/" title="PAX Dev: Seattle, WA"><strong>PAX Dev</strong></a></li>
+			</ul>
+		</div>
+	</div>
+<!-- BEGIN Quantcast Tag -->
+<script type="text/javascript">
+	var _qevents = _qevents || [];
+	(function() {
+		var elem = document.createElement('script');
+		elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";
+		elem.async = true;
+		elem.type = "text/javascript";
+		var scpt = document.getElementsByTagName('script')[0];
+		scpt.parentNode.insertBefore(elem, scpt);
+	})();
+	_qevents.push({qacct:"p-7aMlAhcqainl6"});
+</script>
+<noscript>
+	<div style="display:none;"><img src="//pixel.quantserve.com/pixel/p-7aMlAhcqainl6.gif" border="0" height="1" width="1" alt="Quantcast"/></div>
+</noscript>
+<!-- END Quantcast tag -->
+
+<!-- BEGIN Nielsen Online SiteCensus V6.0 -->
+<!-- COPYRIGHT 2010 Nielsen Online -->
+<script type="text/javascript">
+	(function () {
+		var d = new Image(1, 1);
+		d.onerror = d.onload = function () {
+			d.onerror = d.onload = null;
+		};
+    	d.src = ["//secure-us.imrworldwide.com/cgi-bin/m?ci=us-105791h&cg=0&cc=1&si=", escape(window.location.href), "&rp=", escape(document.referrer), "&ts=compact&rnd=", (new Date()).getTime()].join('');
+	})();
+</script>
+<noscript>
+	<div><img src="//secure-us.imrworldwide.com/cgi-bin/m?ci=us-105791h&amp;cg=0&amp;cc=1&amp;ts=noscript" width="1" height="1" alt="" /></div>
+</noscript>
+<!-- END Nielsen Online SiteCensus V6.0 -->
+
+<!-- BEGIN Compete XL Code for penny-arcade.com -->
+<script type="text/javascript">
+	__compete_code = '7068d7e9358a648ffebc11d328f1691b';
+	/* Set control variables below this line. */
+</script>
+<script type="text/javascript" src="//c.compete.com/bootstrap/s/7068d7e9358a648ffebc11d328f1691b/penny-arcade-com/bootstrap.js"></script>
+<noscript>
+	<img width="1" height="1" src="https://ssl-penny-arcade-com-7068d7.c-col.com"/>
+</noscript>
+<!-- END Compete XL Code for penny-arcade.com -->
+
+<!-- BEGIN comScore Tag -->
+<script>
+	var _comscore = _comscore || [];
+	_comscore.push({
+		c1: "2", c2: "13395694"
+	});
+	(function() {
+		var s = document.createElement("script"), el = document.getElementsByTagName("script")[0]; s.async = true;
+		s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+		el.parentNode.insertBefore(s, el);
+	})();
+</script>
+<noscript>
+	<img src="http://b.scorecardresearch.com/p?c1=2&c2=13395694&cv=2.0&cj=1" />
+</noscript>
+<!-- END comScore Tag -->
+</body>
+</html>

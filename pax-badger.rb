@@ -65,14 +65,8 @@ loop do
   puts "checking..."
 
   print "website..."
-  paxsite = Nokogiri::HTML(open("http://east.paxsite.com"))
+  paxsite = Nokogiri::HTML(open("http://" + expo + ".paxsite.com"))
   badges = paxsite.css("ul#badges")
-
-  # Local testing
-  # paxsite = Nokogiri::HTML(open("test.html"))
-  # badges = paxsite.css("ul#badges")
-  # puts badges
-  # puts badges.css("li.soldOut").empty?
 
   if badges.css("li.soldOut").empty?
     puts "something's different...BADGES ARE NOT SOLD OUT!"
@@ -112,8 +106,7 @@ loop do
         to: ENV['MY_NUMBER'],
         body: source
       )
-      # Reset cooldown -
-      # time equal to loop sleep time * message_cooldown
+      # Reset cooldown
       message_cooldown = 2
     else
       message_cooldown = message_cooldown - 1
