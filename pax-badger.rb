@@ -101,7 +101,7 @@ for i in 0..5 do
     # Check if a specific expo is mentioned
     if paxtweets[i].text.match(expo_regex)
       # Only register found if tweet occurred after the last run, indicated by interval
-      if (Time.now - paxtweets[i].created_at) > interval
+      if (Time.now - paxtweets[i].created_at) < interval
         found = true
         source = "Badges mentioned by @Official_PAX!: " + paxtweets[i].text
       end
