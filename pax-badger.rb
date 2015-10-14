@@ -5,7 +5,10 @@ require 'twilio-ruby'
 require 'dotenv'
 Dotenv.load
 
-# TODO: Single run and background modes
+# Run this script as a cron job!
+# Running `ruby pax-badger.rb east 1800`
+# configures checking for pax east badges every half hour,
+# provided it is scheduled to run every half hour.
 
 @twitter_client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['API_KEY']
@@ -22,14 +25,12 @@ end
 
 # create twilio client
 @twilio_client = Twilio::REST::Client.new
-message_cooldown = 0
 
 badge_regex = /.+?[B|b]adge(s|).+?$/
 east_regex = /.+?[E|e]ast.+?$/
 south_regex = /.+?[S|s]outh.+?$/
 prime_regex = /.+?[P|p]rime.+?$/
 aus_regex = /.+?[A|a]us.+?$/
-oldtweets = [nil,nil,nil,nil,nil]
 
 # Read command-line argument to choose expo
 case ARGV[0]
@@ -45,9 +46,24 @@ when /prime/i
 when /aus/i
   expo = "aus"
   expo_regex = aus_regex
+when nil
+  puts "Error: no expo selected."
+  exit
 else
   puts "Error: '" + ARGV[0] + "' is not a valid expo."
   exit
+end
+
+# Read interval input in seconds
+if ARGV[1].nil?
+  interval = 0
+else
+  interval = ARGV[1].to_i
+  if interval == 0 # non-integer entered or 0 entered
+    puts "Error: invalid interval."
+    puts "Interval is the time in seconds between scheduled runs of this script."
+    exit
+  end
 end
 
 puts "pax-badger by alexjwong"
@@ -57,65 +73,58 @@ puts "\n"
 puts "Starting monitor for PAX " + expo + " badges."
 puts "\n"
 
-loop do
-  found = false
-  source = ""
+found = false
+source = ""
 
-  # monitor..
-  puts "checking..."
+# monitor..
+puts "checking..."
 
-  print "website..."
-  paxsite = Nokogiri::HTML(open("http://" + expo + ".paxsite.com"))
-  badges = paxsite.css("ul#badges")
+print "website..."
+paxsite = Nokogiri::HTML(open("http://" + expo + ".paxsite.com"))
+badges = paxsite.css("ul#badges")
 
-  if badges.css("li.soldOut").empty?
-    puts "something's different...BADGES ARE NOT SOLD OUT!"
-    found = true
-    source = "Badges may be available! - check " + expo + ".paxsite.com"
-  end
-  puts "...done"
+if badges.css("li.soldOut").empty?
+  puts "something's different...BADGES ARE NOT SOLD OUT!"
+  found = true
+  source = "Badges may be available! - check " + expo + ".paxsite.com"
+end
+puts "...done"
 
-  print "twitter..."
+print "twitter..."
 
-  # Most recent 5 tweets
-  paxtweets = @twitter_client.user_timeline('Official_PAX')[0..5]
+# Most recent 5 tweets
+paxtweets = @twitter_client.user_timeline('Official_PAX')[0..5]
 
-  for i in 0..5 do
-    # Make sure there are new tweets
-    if paxtweets[i].text.match(badge_regex) && paxtweets[i] != oldtweets[i]
-      # See if a specific expo is mentioned
-      if paxtweets[i].text.match(expo_regex)
+for i in 0..5 do
+  # Check to see if a tweet contains 'badge'
+  if paxtweets[i].text.match(badge_regex)
+    # Check if a specific expo is mentioned
+    if paxtweets[i].text.match(expo_regex)
+      # Only register found if tweet occurred after the last run, indicated by interval
+      if (Time.now - paxtweets[i].created_at) > interval
         found = true
         source = "Badges mentioned by @Official_PAX!: " + paxtweets[i].text
       end
-      break
     end
+    break
   end
-  oldtweets = paxtweets
+end
 
-  puts "...done"
+puts "...done"
+puts "\n"
+
+if found
+  puts source
   puts "\n"
 
-  if found
-    puts source
-    puts "\n"
-    if message_cooldown == 0
-      # Send text notifications
-      @twilio_client.messages.create(
-        from: ENV['TWILIO_NUMBER'],
-        to: ENV['MY_NUMBER'],
-        body: source
-      )
-      # Reset cooldown
-      message_cooldown = 2
-    else
-      message_cooldown = message_cooldown - 1
-    end
+  # Send text notifications
+  @twilio_client.messages.create(
+    from: ENV['TWILIO_NUMBER'],
+    to: ENV['MY_NUMBER'],
+    body: "pax-badger: " + source
+  )
 
-  else
-    puts "No badges yet...sit tight."
-    puts "\n"
-  end
-
-  sleep(60*5) # 5 Minutes
+else
+  puts "No badges mentioned recently...sit tight."
+  puts "\n"
 end
