@@ -56,7 +56,7 @@ end
 
 # Read interval input in seconds
 if ARGV[1].nil?
-  interval = 0
+  single = true
 else
   interval = ARGV[1].to_i
   if interval == 0 # non-integer entered or 0 entered
@@ -101,9 +101,14 @@ for i in 0..5 do
     # Check if a specific expo is mentioned
     if paxtweets[i].text.match(expo_regex)
       # Only register found if tweet occurred after the last run, indicated by interval
-      if (Time.now - paxtweets[i].created_at) < interval
+      if single == true
         found = true
         source = "Badges mentioned by @Official_PAX!: " + paxtweets[i].text
+      else
+        if (Time.now - paxtweets[i].created_at) < interval
+          found = true
+          source = "Badges mentioned by @Official_PAX!: " + paxtweets[i].text
+        end
       end
     end
     break
