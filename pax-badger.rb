@@ -6,9 +6,9 @@ require 'dotenv'
 Dotenv.load
 
 # Run this script as a cron job!
-# Running `ruby pax-badger.rb east 1800`
-# configures checking for pax east badges every half hour,
-# provided it is scheduled to run every half hour.
+# Running `ruby pax-badger.rb east 600`
+# configures checking for pax east badges every 10 minutes,
+# provided it is scheduled to run every 10 minutes.
 
 @twitter_client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV['API_KEY']
@@ -58,6 +58,7 @@ end
 if ARGV[1].nil?
   single = true
 else
+  single = false
   interval = ARGV[1].to_i
   if interval == 0 # non-integer entered or 0 entered
     puts "Error: invalid interval."
@@ -74,21 +75,11 @@ puts "Starting monitor for PAX " + expo + " badges."
 puts "\n"
 
 found = false
+hold = false
 source = ""
 
 # monitor..
 puts "checking..."
-
-print "website..."
-paxsite = Nokogiri::HTML(open("http://" + expo + ".paxsite.com"))
-badges = paxsite.css("ul#badges")
-
-if badges.css("li.soldOut").empty?
-  puts "something's different...BADGES ARE NOT SOLD OUT!"
-  found = true
-  source = "Badges may be available! - check " + expo + ".paxsite.com"
-end
-puts "...done"
 
 print "twitter..."
 
@@ -100,14 +91,19 @@ for i in 0..5 do
   if paxtweets[i].text.match(badge_regex)
     # Check if a specific expo is mentioned
     if paxtweets[i].text.match(expo_regex)
-      # Only register found if tweet occurred after the last run, indicated by interval
+      # Single run mode
       if single == true
         found = true
         source = "Badges mentioned by @Official_PAX!: " + paxtweets[i].text
       else
+        # Only register found if tweet occurred after the last run, indicated by interval
         if (Time.now - paxtweets[i].created_at) < interval
           found = true
           source = "Badges mentioned by @Official_PAX!: " + paxtweets[i].text
+        else
+          # Since we know we sent a notification about this already,
+          # set flag indicating ignoring the website results
+          hold = true
         end
       end
     end
@@ -116,18 +112,33 @@ for i in 0..5 do
 end
 
 puts "...done"
+
+print "website..."
+# If nothing has been found after checking tweets, check website
+if (!found && hold == false)
+  paxsite = Nokogiri::HTML(open("http://" + expo + ".paxsite.com"))
+  badges = paxsite.css("ul#badges")
+
+  if badges.css("li.soldOut").empty?
+    found = true
+    source = "BADGES MAY BE AVAILABLE! - check " + expo + ".paxsite.com"
+  end
+end
+puts "...done"
 puts "\n"
 
 if found
   puts source
   puts "\n"
 
-  # Send text notifications
-  @twilio_client.messages.create(
-    from: ENV['TWILIO_NUMBER'],
-    to: ENV['MY_NUMBER'],
-    body: "pax-badger: " + source
-  )
+  # Send text notifications (if not running in single-run mode)
+  if (!single)
+    @twilio_client.messages.create(
+      from: ENV['TWILIO_NUMBER'],
+      to: ENV['MY_NUMBER'],
+      body: "pax-badger: " + source
+    )
+  end
 
 else
   puts "No badges mentioned recently...sit tight."
