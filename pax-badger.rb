@@ -29,8 +29,9 @@ end
 badge_regex = /.+?[B|b]adge(s|).+?$/
 east_regex = /.+?[E|e]ast.+?$/
 south_regex = /.+?[S|s]outh.+?$/
-prime_regex = /.+?[P|p]rime.+?$/
+west_regex = /.+?[W|w]est.+?$/
 aus_regex = /.+?[A|a]us.+?$/
+dev_regex = /.+?[D|d]ev.+?$/
 
 # Read command-line argument to choose expo
 case ARGV[0]
@@ -40,12 +41,15 @@ when /east/i
 when /south/i
   expo = "south"
   expo_regex = south_regex
-when /prime/i
-  expo = "prime"
-  expo_regex = prime_regex
+when /west/i
+  expo = "west"
+  expo_regex = west_regex
 when /aus/i
   expo = "aus"
   expo_regex = aus_regex
+when /dev/i
+  expo = "dev"
+  expo_regex = dev_regex
 when nil
   puts "Error: no expo selected."
   exit
@@ -115,7 +119,8 @@ puts "...done"
 
 print "website..."
 # If nothing has been found after checking tweets, check website
-if (!found && hold == false)
+# **west.paxsite is not created yet, so ignore it for now**
+if (!found && hold == false && expo != "west")
   paxsite = Nokogiri::HTML(open("http://" + expo + ".paxsite.com"))
   badges = paxsite.css("ul#badges")
 
